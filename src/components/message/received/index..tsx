@@ -56,7 +56,7 @@ export const ReceivedMessage = ({
             borderRadius={"10px"}
             sx={{ borderTopLeftRadius: "0" }}
           >
-            <Typography fontSize={"14px"} color={"white"}>
+            <Typography fontSize={"14px"} color={theme.palette.primary.contrastText}>
               {message}
             </Typography>
           </Box>
