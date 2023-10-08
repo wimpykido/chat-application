@@ -50,7 +50,7 @@ export const ReceivedMessage = ({
           <Avatar src={heart} />
         ) : (
           <Box
-            bgcolor={"#323232"}
+            bgcolor={theme.palette.secondary.main}
             width={"fit-content"}
             p={1.5}
             borderRadius={"10px"}
