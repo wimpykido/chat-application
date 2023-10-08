@@ -50,11 +50,11 @@ export const ReceivedMessage = ({
           <Avatar src={heart} />
         ) : (
           <Box
-            bgcolor={"#00A3FF"}
+            bgcolor={"#323232"}
             width={"fit-content"}
             p={1.5}
             borderRadius={"10px"}
-            sx={{ borderTopRightRadius: "0" }}
+            sx={{ borderTopLeftRadius: "0" }}
           >
             <Typography fontSize={"14px"} color={"white"}>
               {message}
