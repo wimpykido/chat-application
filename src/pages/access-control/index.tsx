@@ -27,7 +27,7 @@ const AccessControl = () => {
           <div className="muzzle"></div>
         </div>
       </div>
-      {!auth ? (
+      {!auth.currentUser ? (
         <>
           <Typography color={"white"}>
             Please sign in to access this page.

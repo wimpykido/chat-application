@@ -1,5 +1,5 @@
 // src/ThemeProvider.tsx
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import {
   createTheme,
   ThemeProvider as MuiThemeProvider,
@@ -25,8 +25,15 @@ type ProviderProps = {
 };
 
 const ThemeProvider = ({ children }: ProviderProps) => {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(() => {
+    const storedDarkMode = localStorage.getItem("darkMode");
+    return storedDarkMode ? JSON.parse(storedDarkMode) : true;
+  });
 
+  useEffect(() => {
+    localStorage.setItem("darkMode", JSON.stringify(darkMode));
+  }, [darkMode]);
+  
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
