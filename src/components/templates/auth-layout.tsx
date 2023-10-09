@@ -44,7 +44,8 @@ export const AuthLayout = ({ children, avatarData }: Props) => {
         <Container
           maxWidth="xl"
           sx={{
-            width: "100%",
+            // width: "100%",
+            minWidth: "390px",
             display: "flex",
             justifyContent: "center",
             backgroundColor: theme.palette.primary.main,
@@ -53,6 +54,7 @@ export const AuthLayout = ({ children, avatarData }: Props) => {
           <Toolbar
             disableGutters
             sx={{
+              minWidth: "370px",
               width: "80%",
               display: "flex",
               justifyContent: "space-between",
@@ -62,7 +64,7 @@ export const AuthLayout = ({ children, avatarData }: Props) => {
             <Box display={"flex"} alignItems={"center"}>
               <SmsIcon
                 sx={{
-                  display: { xs: "none", md: "flex" },
+                  display: "flex",
                   mr: 1,
                   color: "#00A3FF",
                 }}
@@ -74,7 +76,7 @@ export const AuthLayout = ({ children, avatarData }: Props) => {
                 href="#app-bar-with-responsive-menu"
                 sx={{
                   mr: 2,
-                  display: { xs: "none", md: "flex" },
+                  display: "flex",
                   fontFamily: "monospace",
                   fontWeight: 700,
                   letterSpacing: ".3rem",

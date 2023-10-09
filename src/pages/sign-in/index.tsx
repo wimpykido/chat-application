@@ -53,7 +53,7 @@ export const SignIn = () => {
   const theme = useTheme();
   return (
     <UnauthLayout>
-      <Stack width="100%" maxWidth={400} spacing={2}>
+      <Stack width="80%" maxWidth={400} spacing={2}>
         <Typography
           variant="h4"
           fontWeight={600}

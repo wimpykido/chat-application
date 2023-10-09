@@ -9,16 +9,27 @@ export const Send = ({ handleSubmit }: SendProps) => {
   return (
     <Button
       sx={{
-        backgroundColor: "#00A3FF",
+        backgroundColor: { xs: "none", md: "#00A3FF" },
         color: "white",
         borderRadius: "5px",
       }}
       onClick={handleSubmit}
     >
-      <Typography textTransform={"none"} marginRight={0.5}>
+      <Typography
+        display={{ xs: "none", md: "flex" }}
+        textTransform={"none"}
+        marginRight={0.5}
+      >
         send
       </Typography>
-      <SendIcon fontSize="small" />
+      <SendIcon
+        sx={{
+          fontSize: {
+            xs: "large", 
+            md: "small",
+          },
+        }}
+      />
     </Button>
   );
 };

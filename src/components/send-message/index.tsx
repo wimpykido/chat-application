@@ -62,32 +62,29 @@ export const SendMessage = () => {
       alignItems={"center"}
       alignContent={"center"}
       width={"100%"}
+      minWidth={"390px"}
     >
       <Box
-        minWidth={"400px"}
+        minWidth={"360px"}
         width={"80%"}
         display={"flex"}
         justifyContent={"space-between"}
         alignItems={"center"}
         alignContent={"center"}
       >
-        <ControlledTextField
-          fullWidth
-          rows={1}
-          maxRows={10}
-          variant="standard"
-          name="text"
-          rules={message}
-          control={control}
-          placeholder="Type message..."
-          required
-        />
-        <Box
-          display={"flex"}
-          justifyContent={"center"}
-          alignItems={"center"}
-          gap={2}
-        >
+        <Box width={"100%"} maxWidth={600}>
+          <ControlledTextField
+            rows={1}
+            maxRows={10}
+            variant="standard"
+            name="text"
+            rules={message}
+            control={control}
+            placeholder="Type message..."
+            required
+          />
+        </Box>
+        <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
           <Send handleSubmit={handleSubmit(sendMessage)} />
           <QuickReaction onQuickReactionClick={handleQuickReactionClick} />
         </Box>

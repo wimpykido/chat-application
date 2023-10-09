@@ -24,6 +24,8 @@ const ChatPage = () => {
   return (
     <AuthLayout avatarData={avatarData}>
       <Box
+        minWidth={"390px"}
+        width={"100%"}
         display={"flex"}
         flexDirection={"column"}
         alignItems={"center"}

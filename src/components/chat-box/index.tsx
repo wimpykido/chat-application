@@ -43,11 +43,12 @@ export const ChatBox = ({ avatarData }: chatProps) => {
       height={"calc(100vh - 164px)"}
       gap={3}
       p={1}
-      width={"80%"}
       sx={{
+        minWidth: "390px",
+        width: "80%",
         overflowY: "auto",
         "&::-webkit-scrollbar": {
-          width: "4px",
+          width: { xs: "1px", md: "4px" },
         },
         "&::-webkit-scrollbar-thumb": {
           backgroundColor: theme.palette.secondary.light,
