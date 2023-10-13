@@ -1,23 +1,23 @@
-import { TextField, TextFieldProps } from '../../text-field'
-import { isRequired } from '../validations'
+import { TextField, TextFieldProps } from "../../text-field";
+import { isRequired } from "../validations";
 import {
   FieldPath,
   FieldValues,
   useController,
   UseControllerProps,
-} from 'react-hook-form'
+} from "react-hook-form";
 
 export type ControlledTextFieldProps<
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 > = TextFieldProps &
   UseControllerProps<TFieldValues, TName> & {
-    disableAutofill?: boolean
-  }
+    disableAutofill?: boolean;
+  };
 
 export const ControlledTextField = <
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 >({
   name,
   control,
@@ -42,7 +42,7 @@ export const ControlledTextField = <
       ...rules,
       required: isRequired(required),
     },
-  })
+  });
 
   return (
     <TextField
@@ -63,5 +63,5 @@ export const ControlledTextField = <
       type={type}
       disableAutofill={disableAutofill}
     />
-  )
-}
+  );
+};

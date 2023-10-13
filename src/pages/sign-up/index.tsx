@@ -14,8 +14,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
 import { UnauthLayout } from "../../components/templates/unauth-layout";
+import { doc, setDoc } from "firebase/firestore";
 
 type SignUpFormFields = {
   firstName: string;
@@ -61,6 +62,11 @@ export const SignUp = () => {
       }
       await updateProfile(auth.currentUser, { displayName });
       console.log(displayName);
+      await setDoc(doc(db, "users", auth.currentUser.uid), {
+        displayName,
+        email,
+        id: auth.currentUser.uid
+      })
       navigate("/chat");
     } catch (error: any) {
       console.error("Error creating user:", error.message);

@@ -39,39 +39,39 @@ export const ChatBox = ({ avatarData }: chatProps) => {
   }, []);
   console.log(messages);
   return (
-    <Stack
-      height={"calc(100vh - 164px)"}
-      gap={3}
-      p={1}
-      sx={{
-        minWidth: "390px",
-        width: "80%",
-        overflowY: "auto",
-        "&::-webkit-scrollbar": {
-          width: { xs: "1px", md: "4px" },
-        },
-        "&::-webkit-scrollbar-thumb": {
-          backgroundColor: theme.palette.secondary.light,
-          borderRadius: "5px",
-        },
-        "&::-webkit-scrollbar-thumb:hover": {
-          backgroundColor: "#333",
-        },
-      }}
-    >
-      {messages.map((mes) => {
-        return (
-          <Message
-            reaction={mes.reaction}
-            avatar={avatarData}
-            email={mes.email}
-            key={mes.id}
-            createdAt={mes.createdAt}
-            message={mes.text}
-            displayName={mes.name}
-          />
-        );
-      })}
-    </Stack>
+      <Stack
+        height={"calc(100vh - 164px)"}
+        gap={3}
+        p={1}
+        sx={{
+          minWidth: "390px",
+          width: "80%",
+          overflowY: "auto",
+          "&::-webkit-scrollbar": {
+            width: { xs: "1px", md: "4px" },
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: theme.palette.secondary.light,
+            borderRadius: "5px",
+          },
+          "&::-webkit-scrollbar-thumb:hover": {
+            backgroundColor: "#333",
+          },
+        }}
+      >
+        {messages.map((mes) => {
+          return (
+            <Message
+              reaction={mes.reaction}
+              avatar={avatarData}
+              email={mes.email}
+              key={mes.id}
+              createdAt={mes.createdAt}
+              message={mes.text}
+              displayName={mes.name}
+            />
+          );
+        })}
+      </Stack>
   );
 };

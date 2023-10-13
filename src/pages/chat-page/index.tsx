@@ -5,6 +5,7 @@ import { SendMessage } from "../../components/send-message";
 import { ChatBox } from "../../components/chat-box";
 import { useEffect, useState } from "react";
 import { fetchAvatar } from "../../api/avatar";
+import { ChatLayout } from "../../components/templates/chats-layout";
 
 const ChatPage = () => {
   const theme = useTheme();
@@ -23,19 +24,21 @@ const ChatPage = () => {
   console.log(user);
   return (
     <AuthLayout avatarData={avatarData}>
-      <Box
-        minWidth={"390px"}
-        width={"100%"}
-        display={"flex"}
-        flexDirection={"column"}
-        alignItems={"center"}
-        justifyContent={"center"}
-        bgcolor={theme.palette.primary.light}
-        height={"calc(100vh - 64px)"}
-      >
-        <ChatBox avatarData={avatarData} />
-        <SendMessage />
-      </Box>
+      <ChatLayout>
+        <Box
+          minWidth={"390px"}
+          width={"100%"}
+          display={"flex"}
+          flexDirection={"column"}
+          alignItems={"center"}
+          justifyContent={"center"}
+          bgcolor={theme.palette.primary.light}
+          height={"calc(100vh - 64px)"}
+        >
+          <ChatBox avatarData={avatarData} />
+          <SendMessage />
+        </Box>
+      </ChatLayout>
     </AuthLayout>
   );
 };
