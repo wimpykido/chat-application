@@ -6,6 +6,7 @@ import { auth, db } from "../../firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { message } from "../form/validations";
 import { QuickReaction } from "../quick-reaction-button";
+import { Attachment } from "../attachment-message";
 
 export type MessageType = {
   email: string;
@@ -84,9 +85,10 @@ export const SendMessage = () => {
             required
           />
         </Box>
-        <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
-          <Send handleSubmit={handleSubmit(sendMessage)} />
+        <Box display={"flex"} justifyContent={"center"} alignItems={"center"} gap={1}>
           <QuickReaction onQuickReactionClick={handleQuickReactionClick} />
+          <Attachment />
+          <Send handleSubmit={handleSubmit(sendMessage)} />
         </Box>
       </Box>
     </Box>
