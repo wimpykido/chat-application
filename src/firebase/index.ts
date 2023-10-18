@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { setPersistence, browserSessionPersistence } from "firebase/auth";
-import { getStorage, ref } from "firebase/storage";
+import { getStorage } from "firebase/storage";
 const firebaseConfig = {
   apiKey: "AIzaSyAUWmEImmNltgSrzcjEuqUySlmGdmQWfUw",
   authDomain: "chat-application-9e8b8.firebaseapp.com",
