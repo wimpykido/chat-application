@@ -1,13 +1,23 @@
 import { Box, Stack, useTheme } from "@mui/material";
-import { SearchBar } from "../search-bar";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { User } from "../user";
+import { Search } from "../search-comp";
 
 type ChatLayoutProps = {
   children: ReactNode;
 };
 
+export type UserType = {
+  displayName?: string;
+  id: string;
+  lastMessage?: string;
+  createdAt?: number;
+  avatar?: string | null;
+};
+
 export const ChatLayout = ({ children }: ChatLayoutProps) => {
+  const [user, setUser] = useState<UserType | null>();
+
   const theme = useTheme();
   return (
     <Box width={"100%"} display={"flex"} bgcolor={theme.palette.primary.main}>
@@ -19,12 +29,12 @@ export const ChatLayout = ({ children }: ChatLayoutProps) => {
         justifyContent={"flex-start"}
         gap={2}
       >
-        <SearchBar />
-        <User
-          displayName={"Nini Qoqoladze"}
-          lastMessage={"eliso davaleba damawerine"}
-          createdAt={54835839509}
-        />
+        <Search user={user} setUser={setUser} />
+        {/* <User
+          displayName={user?.displayName}
+          lastMessage={user?.lastMessage}
+          createdAt={user?.createdAt}
+        /> */}
       </Stack>
       {children}
     </Box>

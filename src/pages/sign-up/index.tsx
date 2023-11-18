@@ -65,8 +65,9 @@ export const SignUp = () => {
       await setDoc(doc(db, "users", auth.currentUser.uid), {
         displayName,
         email,
-        id: auth.currentUser.uid
-      })
+        id: auth.currentUser.uid,
+      });
+      await setDoc(doc(db, "userChats", auth.currentUser.uid), {});
       navigate("/chat");
     } catch (error: any) {
       console.error("Error creating user:", error.message);

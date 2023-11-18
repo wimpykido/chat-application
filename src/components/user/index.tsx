@@ -1,9 +1,9 @@
 import { Avatar, Box, Typography, useTheme } from "@mui/material";
 
 type UserProps = {
-  displayName: string;
-  lastMessage: string;
-  createdAt: number;
+  displayName?: string;
+  lastMessage?: string;
+  createdAt?: number;
   avatar?: string | null;
 };
 
@@ -56,9 +56,11 @@ export const User = ({
           </Typography>
         </Box>
       </Box>
-      <Typography fontSize={"14px"} color={"#A0A0A0"}>
-        {formatTimestamp(createdAt)}
-      </Typography>
+      {createdAt && (
+        <Typography fontSize={"14px"} color={"#A0A0A0"}>
+          {formatTimestamp(createdAt)}
+        </Typography>
+      )}
     </Box>
   );
 };

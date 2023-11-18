@@ -3,14 +3,22 @@ import { Box, useTheme } from "@mui/material";
 import { AuthLayout } from "../../components/templates/auth-layout";
 import { SendMessage } from "../../components/send-message";
 import { ChatBox } from "../../components/chat-box";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { fetchAvatar } from "../../api/avatar";
-import { ChatLayout } from "../../components/templates/chats-layout";
+import { ChatLayout, UserType } from "../../components/templates/chats-layout";
+import { ChatContext, ChatContextType } from "../../context/chat-context";
+import { type } from "os";
 
 const ChatPage = () => {
   const theme = useTheme();
   const user = auth.currentUser?.displayName;
   const [avatarData, setAvatarData] = useState<string | null>(null);
+  const [chats, setChats] = useState([]);
+  const { dispatch } = useContext(ChatContext) as ChatContextType;
+
+  const handleSelect = (u: UserType) => {
+    dispatch({type: "CHANGE_USER", payload: u})
+  }
   useEffect(() => {
     user &&
       fetchAvatar(user)

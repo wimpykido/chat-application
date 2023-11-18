@@ -1,42 +1,27 @@
-import {
-  Box,
-  Button,
-  InputAdornment,
-  TextField,
-  useTheme,
-} from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import { Box, InputAdornment, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { useState } from "react";
-import { auth, db } from "../../firebase";
-import { collection, where, query, getDocs } from "firebase/firestore";
+import { Dispatch, SetStateAction } from "react";
+import { SearchProps } from "../search-comp";
 
-export const SearchBar = () => {
-  const [searchValue, setSearchValue] = useState("");
-  const [user, setUser] = useState<any>();
+type SearchBarProps = SearchProps & {
+  searchResults: any[];
+  searchValue: string;
+  setSearchValue: Dispatch<SetStateAction<string>>;
+  handleSearch: () => Promise<void>;
+};
 
-
-  const handleSearch = async () => {
-    const q = query(
-      collection(db, "users"),
-      where("displayName", "==", searchValue)
-    );
-    try {
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        setUser(doc.data());
-        console.log(doc.data());
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const theme = useTheme();
-
+export const SearchBar = ({
+  user,
+  setUser,
+  searchValue,
+  setSearchValue,
+  handleSearch,
+  searchResults,
+}: SearchBarProps) => {
   return (
-    <Box display={"flex"} justifyContent={"space-between"} width={"90%"}>
+    <Box display={"flex"} justifyContent={"center"} width={"90%"}>
       <TextField
+        fullWidth
         placeholder="search people"
         InputProps={{
           startAdornment: (
@@ -46,18 +31,11 @@ export const SearchBar = () => {
           ),
         }}
         value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        onChange={(e) => {
+          setSearchValue(e.target.value);
+          handleSearch();
+        }}
       />
-      <Button
-        onClick={handleSearch}
-        aria-label="Start a private chat"
-        sx={{ backgroundColor: "#00A3FF" }}
-      >
-        <AddIcon
-          fontSize="large"
-          sx={{ color: theme.palette.primary.contrastText }}
-        />
-      </Button>
     </Box>
   );
 };
