@@ -16,7 +16,7 @@ export const SentMessage = ({
     return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   };
   return (
-    <Box display={"flex"} gap={1} alignSelf={"flex-end"}>
+    <Box marginRight={4} display={"flex"} gap={1} alignSelf={"flex-end"}>
       <Stack
         display={"flex"}
         alignItems={"flex-end"}

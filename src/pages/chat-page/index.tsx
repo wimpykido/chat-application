@@ -1,15 +1,17 @@
 import { auth } from "../../firebase";
-import { Box, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { AuthLayout } from "../../components/templates/auth-layout";
 import { SendMessage } from "../../components/send-message";
 import { ChatBox } from "../../components/chat-box";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { fetchAvatar } from "../../api/avatar";
-
+import { ChatLayout } from "../../components/templates/chats-layout";
+import { ChatContext, ChatContextType } from "../../context/chat-context";
 const ChatPage = () => {
+  const [avatarData, setAvatarData] = useState<string | null>(null);
   const theme = useTheme();
   const user = auth.currentUser?.displayName;
-  const [avatarData, setAvatarData] = useState<string | null>(null);
+  const { data } = useContext(ChatContext) as ChatContextType;
   useEffect(() => {
     user &&
       fetchAvatar(user)
@@ -23,19 +25,26 @@ const ChatPage = () => {
   console.log(user);
   return (
     <AuthLayout avatarData={avatarData}>
-      <Box
-        minWidth={"390px"}
-        width={"100%"}
-        display={"flex"}
-        flexDirection={"column"}
-        alignItems={"center"}
-        justifyContent={"center"}
-        bgcolor={theme.palette.primary.light}
-        height={"calc(100vh - 64px)"}
-      >
-        <ChatBox avatarData={avatarData} />
-        <SendMessage />
-      </Box>
+      <ChatLayout>
+        <Box
+          width={"75%"}
+          display={"flex"}
+          flexDirection={"column"}
+          alignItems={"center"}
+          justifyContent={"center"}
+          bgcolor={theme.palette.primary.light}
+          height={"calc(100vh - 64px)"}
+        >
+          {data.chatId ? (
+            <>
+              <ChatBox avatarData={avatarData} />
+              <SendMessage />
+            </>
+          ) : (
+            <Typography>Start chatting!</Typography>
+          )}
+        </Box>
+      </ChatLayout>
     </AuthLayout>
   );
 };

@@ -25,7 +25,7 @@ export const ReceivedMessage = ({
       });
   }, [displayName]);
   return (
-    <Box display={"flex"} gap={1} alignSelf={"flex-start"}>
+    <Box marginLeft={4} display={"flex"} gap={1} alignSelf={"flex-start"}>
       {avatarData ? (
         <Avatar
           src={`data:image/svg+xml;utf8,${encodeURIComponent(avatarData)}`}

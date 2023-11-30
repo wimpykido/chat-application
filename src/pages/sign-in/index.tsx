@@ -43,6 +43,7 @@ export const SignIn = () => {
         email,
         password
       );
+
       const user = userCredential.user;
       navigate("/chat");
       console.log("Signed in user:", user);

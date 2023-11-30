@@ -1,15 +1,10 @@
-import { Stack, useTheme } from "@mui/material";
-import { useEffect, useState } from "react";
-import {
-  query,
-  collection,
-  orderBy,
-  onSnapshot,
-  limit,
-} from "firebase/firestore";
+import { Box, Stack, useTheme } from "@mui/material";
+import { useContext, useEffect, useState } from "react";
+import { onSnapshot, doc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { MessageType } from "../send-message";
 import { Message } from "../message";
+import { ChatContext, ChatContextType } from "../../context/chat-context";
 
 type Messages = Array<MessageType>;
 type chatProps = {
@@ -18,34 +13,35 @@ type chatProps = {
 
 export const ChatBox = ({ avatarData }: chatProps) => {
   const [messages, setMessages] = useState<Messages>([]);
+  const { data } = useContext(ChatContext) as ChatContextType;
   const theme = useTheme();
+
   useEffect(() => {
-    const q = query(
-      collection(db, "messages"),
-      orderBy("createdAt", "desc"),
-      limit(50)
-    );
-    const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
-      const fetchedMessages: any[] = [];
-      QuerySnapshot.forEach((doc) => {
-        fetchedMessages.push({ ...doc.data(), id: doc.id });
+    if (data.chatId) {
+      const unSub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
+        console.log(doc.data());
+        doc.exists() && setMessages(doc.data().messages);
       });
-      const sortedMessages: any = fetchedMessages.sort(
-        (a, b) => a.createdAt - b.createdAt
-      );
-      setMessages(sortedMessages);
-    });
-    return () => unsubscribe();
-  }, []);
-  console.log(messages);
+
+      return () => {
+        unSub();
+      };
+    }
+  }, [data.chatId]);
+
+  console.log("es unda gamochndes:", messages);
   return (
+    // <Stack
+    //   height={"calc(100vh - 164px)"}
+    //   display={"flex"}
+    //   flexDirection={"column"}
+    // >
+    //   <Box>hello</Box>
     <Stack
       height={"calc(100vh - 164px)"}
       gap={3}
-      p={1}
       sx={{
-        minWidth: "390px",
-        width: "80%",
+        width: "100%",
         overflowY: "auto",
         "&::-webkit-scrollbar": {
           width: { xs: "1px", md: "4px" },
@@ -59,7 +55,7 @@ export const ChatBox = ({ avatarData }: chatProps) => {
         },
       }}
     >
-      {messages.map((mes) => {
+      {messages.map((mes: MessageType) => {
         return (
           <Message
             reaction={mes.reaction}
@@ -73,5 +69,6 @@ export const ChatBox = ({ avatarData }: chatProps) => {
         );
       })}
     </Stack>
+    // </Stack> 
   );
 };

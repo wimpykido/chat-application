@@ -8,13 +8,12 @@ import AccessControl from "./pages/access-control";
 
 const App = () => {
   return (
-    <BrowserRouter  basename="/chat-application">
+    <BrowserRouter basename="/chat-application">
       <Routes>
         <Route path="/" element={<Navigate to="/sign-in" />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/*" element={<AccessControl />} />
-        {/* <Route path='/chat' element={<ChatPage />} /> */}
         <Route
           path="/chat"
           element={
@@ -23,6 +22,14 @@ const App = () => {
             </PrivateRoute>
           }
         />
+        {/* <Route
+          path="/chat/:chatId"
+          element={
+            <PrivateRoute>
+              <ChatPage />
+            </PrivateRoute>
+          }
+        /> */}
       </Routes>
     </BrowserRouter>
   );

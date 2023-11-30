@@ -3,10 +3,18 @@ import { Send } from "../send-button";
 import { ControlledTextField } from "../form/controlled-text-field";
 import { useForm } from "react-hook-form";
 import { auth, db } from "../../firebase";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  Timestamp,
+  arrayUnion,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 import { message } from "../form/validations";
 import { QuickReaction } from "../quick-reaction-button";
 import { Attachment } from "../attachment-message";
+import { useContext } from "react";
+import { ChatContext, ChatContextType } from "../../context/chat-context";
 
 export type MessageType = {
   email: string;
@@ -24,22 +32,40 @@ export const SendMessage = () => {
       text: "",
     },
   });
-
-  const sendMessage = async (data: MessageType) => {
-    console.log("data inside sendMessage:", data);
-    const user = auth.currentUser;
-    const messageData = {
-      reaction: data.reaction !== undefined ? data.reaction : false,
-      text: data.text,
-      name: user?.displayName,
-      email: user?.email,
-      createdAt: serverTimestamp(),
-    };
+  const { data } = useContext(ChatContext) as ChatContextType;
+  const sendMessage = async (d: MessageType) => {
     try {
-      await addDoc(collection(db, "messages"), messageData);
+      const user = auth.currentUser;
+      if (!user || !data.chatId) {
+        console.error("User or chatId not available");
+        return;
+      }
+      const chatDocRef = doc(db, "chats", data.chatId);
+      await updateDoc(chatDocRef, {
+        messages: arrayUnion({
+          reaction: d.reaction !== undefined ? d.reaction : false,
+          text: d.text,
+          name: user.displayName,
+          email: user.email,
+          createdAt: Timestamp.now(),
+        }),
+      });
+      await updateDoc(doc(db, "userChats", user.uid), {
+        [data.chatId + ".lastMessage"]: {
+          message: d.text,
+        },
+        [data.chatId + ".date"]: serverTimestamp(),
+      });
+      await updateDoc(doc(db, "userChats", data.user.id), {
+        [data.chatId + ".lastMessage"]: {
+          message: d.text,
+        },
+        [data.chatId + ".date"]: serverTimestamp(),
+      });
+      console.log("Update successful");
       setValue("text", "");
     } catch (error) {
-      console.error("Error sending message:", error);
+      console.error("Error updating document:", error);
     }
   };
 
@@ -56,6 +82,7 @@ export const SendMessage = () => {
 
   return (
     <Box
+      borderTop={`1px solid ${theme.palette.secondary.dark}`}
       bgcolor={theme.palette.primary.main}
       height={"100px"}
       display={"flex"}
@@ -63,10 +90,10 @@ export const SendMessage = () => {
       alignItems={"center"}
       alignContent={"center"}
       width={"100%"}
-      minWidth={"390px"}
+      // minWidth={"390px"}
     >
       <Box
-        minWidth={"360px"}
+        // minWidth={"360px"}
         width={"80%"}
         display={"flex"}
         justifyContent={"space-between"}
@@ -85,7 +112,12 @@ export const SendMessage = () => {
             required
           />
         </Box>
-        <Box display={"flex"} justifyContent={"center"} alignItems={"center"} gap={1}>
+        <Box
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          gap={1}
+        >
           <QuickReaction onQuickReactionClick={handleQuickReactionClick} />
           <Attachment />
           <Send handleSubmit={handleSubmit(sendMessage)} />

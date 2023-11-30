@@ -15,7 +15,7 @@ export const SwitchTheme = () => {
         borderRadius: 1,
       }}
     >
-      {darkMode ? "Niko Mode" : "Dark Mode"}
+      {darkMode ? "Light Mode" : "Dark Mode"}
       <IconButton sx={{ ml: 1 }} onClick={toggleDarkMode} color="inherit">
         {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
       </IconButton>
