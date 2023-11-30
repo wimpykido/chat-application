@@ -61,11 +61,12 @@ export const ChatLayout = ({ children }: ChatLayoutProps) => {
       }
     };
     fetchUserChats();
-  }, []);
+  }, [users]);
 
   const theme = useTheme();
   return (
     <Box width={"100%"} display={"flex"} bgcolor={theme.palette.primary.main}>
+
       <Stack
         borderRight={`1px solid ${theme.palette.secondary.dark}`}
         width={"25%"}

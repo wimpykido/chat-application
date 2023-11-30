@@ -1,6 +1,5 @@
 import { Avatar, Box, Typography, useTheme } from "@mui/material";
 import { db, auth } from "../../firebase";
-import { useNavigate } from "react-router-dom";
 import {
   setDoc,
   doc,
@@ -19,7 +18,6 @@ export const SearchResult = ({
   avatar,
   id,
 }: SearchResultProps) => {
-  const navigate = useNavigate();
   const handleSelect = async () => {
     if (auth.currentUser) {
       const combinedId =
@@ -54,7 +52,6 @@ export const SearchResult = ({
             },
             [combinedId + ".date"]: serverTimestamp(),
           });
-          navigate(`/chat/${combinedId}`);
         } else {
           console.log("arsebobs");
         }
