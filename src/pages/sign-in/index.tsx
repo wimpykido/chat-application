@@ -14,7 +14,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../../firebase";
+import { auth } from "../../firebase";
 import { UnauthLayout } from "../../components/templates/unauth-layout";
 
 type SignInFormFields = { email: string; password: string };
@@ -43,7 +43,7 @@ export const SignIn = () => {
         email,
         password
       );
-      
+
       const user = userCredential.user;
       navigate("/chat");
       console.log("Signed in user:", user);

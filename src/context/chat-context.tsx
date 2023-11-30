@@ -1,12 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  ReactNode,
-  useEffect,
-  useReducer,
-} from "react";
-import { onAuthStateChanged } from "firebase/auth";
+import React, { createContext, ReactNode, useReducer } from "react";
 import { auth } from "../firebase";
 import { UserType } from "../components/templates/chats-layout";
 type Props = {
@@ -20,29 +12,42 @@ type ChatAction = {
   type: string;
   payload: UserType;
 };
-export  type ChatContextType = {
+export type ChatContextType = {
   data: ChatState;
   dispatch: React.Dispatch<ChatAction>;
 };
-export const ChatContext = createContext<ChatContextType | undefined>(undefined);
+export const ChatContext = createContext<ChatContextType | undefined>(
+  undefined
+);
 export const ChatContextProvider = ({ children }: Props) => {
   const initialState = {
-    chatId: "null",
+    chatId: null,
     user: {
-        id: ""
+      id: "",
     },
   };
   const chatReducer = (state: ChatState, action: ChatAction) => {
     switch (action.type) {
       case "CHANGE_USER":
-        return {
-          user: action.payload,
-          chatId: auth.currentUser
-            ? auth.currentUser.uid > action.payload.id
-              ? `${auth.currentUser.uid}_${action.payload.id}`
-              : `${action.payload.id}_${auth.currentUser.uid}`
-            : null,
-        };
+        const currentUserUid = auth.currentUser?.uid;
+        const otherUserId = action.payload.id;
+
+        if (currentUserUid && otherUserId) {
+          const chatId =
+            currentUserUid > otherUserId
+              ? `${currentUserUid}_${otherUserId}`
+              : `${otherUserId}_${currentUserUid}`;
+          console.log(chatId);
+          return {
+            ...state,
+            user: action.payload,
+            chatId: chatId,
+          };
+        } else {
+          console.error("User IDs are not available.");
+          return state;
+        }
+
       default:
         return state;
     }

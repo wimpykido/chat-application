@@ -1,5 +1,11 @@
 // src/ThemeProvider.tsx
-import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 import {
   createTheme,
   ThemeProvider as MuiThemeProvider,
@@ -33,7 +39,7 @@ const ThemeProvider = ({ children }: ProviderProps) => {
   useEffect(() => {
     localStorage.setItem("darkMode", JSON.stringify(darkMode));
   }, [darkMode]);
-  
+
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
@@ -42,14 +48,15 @@ const ThemeProvider = ({ children }: ProviderProps) => {
     palette: {
       mode: "light",
       primary: {
-        main: "#f8f4f4",
-        light: "#DFDFDF",
+        main: "#FFFFFF",
+        light: "#f5f5f5",
         dark: "#00A3FF",
         contrastText: "#515151",
       },
       secondary: {
         main: "#FFFFFF",
         light: "#A0A0A0",
+        dark: "#dfdfdf",
       },
     },
   });
@@ -66,6 +73,7 @@ const ThemeProvider = ({ children }: ProviderProps) => {
       secondary: {
         main: "#323232",
         light: "#A0A0A0",
+        dark: "#303030",
       },
     },
   });

@@ -3,7 +3,6 @@ import {
   Avatar,
   Box,
   Button,
-  Container,
   IconButton,
   Menu,
   MenuItem,
@@ -39,67 +38,34 @@ export const AuthLayout = ({ children, avatarData }: Props) => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const theme = useTheme();
   return (
-    <Stack>
+    <Stack width={"100%"} minWidth={'400px'}>
       <AppBar position="static">
-        <Container
+        <Box
           maxWidth="xl"
           sx={{
-            // width: "100%",
-            minWidth: "390px",
+            width: "100%",
+            // minWidth: "390px",
             display: "flex",
             justifyContent: "center",
             backgroundColor: theme.palette.primary.main,
+            borderBottom: `1px solid ${theme.palette.secondary.dark}`,
           }}
         >
           <Toolbar
             disableGutters
             sx={{
-              minWidth: "370px",
-              width: "80%",
+              // minWidth: "400px",
+              width: "100%",
               display: "flex",
               justifyContent: "space-between",
               backgroundColor: theme.palette.primary.main,
             }}
           >
-            <Box display={"flex"} alignItems={"center"}>
-              <SmsIcon
-                sx={{
-                  display: "flex",
-                  mr: 1,
-                  color: "#00A3FF",
-                }}
-              />
-              <Typography
-                variant="h6"
-                noWrap
-                component="a"
-                href="#app-bar-with-responsive-menu"
-                sx={{
-                  mr: 2,
-                  display: "flex",
-                  fontFamily: "monospace",
-                  fontWeight: 700,
-                  letterSpacing: ".3rem",
-                  color: "#00A3FF",
-                  textDecoration: "none",
-                }}
-              >
-                Chat
-              </Typography>
-            </Box>
             <Box>
               <Tooltip title="Open settings">
                 <Button
                   onClick={(event) => setAnchorElUser(event?.currentTarget)}
                 >
-                  <Typography
-                    textTransform={"none"}
-                    textAlign={"center"}
-                    margin={1}
-                    color={darkMode ? "white" : "black"}
-                  >
-                    {auth.currentUser?.displayName}
-                  </Typography>
                   <IconButton sx={{ p: 0 }}>
                     {avatarData ? (
                       <Avatar
@@ -112,6 +78,14 @@ export const AuthLayout = ({ children, avatarData }: Props) => {
                       <Avatar />
                     )}
                   </IconButton>
+                  <Typography
+                    textTransform={"none"}
+                    textAlign={"center"}
+                    margin={1}
+                    color={darkMode ? "white" : "black"}
+                  >
+                    {auth.currentUser?.displayName}
+                  </Typography>
                 </Button>
               </Tooltip>
               <Menu
@@ -141,8 +115,34 @@ export const AuthLayout = ({ children, avatarData }: Props) => {
                 </MenuItem>
               </Menu>
             </Box>
+            <Box display={"flex"} alignItems={"center"}>
+              <SmsIcon
+                sx={{
+                  display: "flex",
+                  mr: 1,
+                  color: "#00A3FF",
+                }}
+              />
+              <Typography
+                variant="h6"
+                noWrap
+                component="a"
+                href="#app-bar-with-responsive-menu"
+                sx={{
+                  mr: 2,
+                  display: "flex",
+                  fontFamily: "monospace",
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  color: "#00A3FF",
+                  textDecoration: "none",
+                }}
+              >
+                Chat
+              </Typography>
+            </Box>
           </Toolbar>
-        </Container>
+        </Box>
       </AppBar>
       {children}
     </Stack>

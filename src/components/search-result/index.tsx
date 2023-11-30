@@ -38,6 +38,9 @@ export const SearchResult = ({
               displayName: displayName,
               // avatar: avatar,
             },
+            [combinedId + ".lastMessage"]: {
+              message: "",
+            },
             [combinedId + ".date"]: serverTimestamp(),
           });
           await updateDoc(doc(db, "userChats", id), {
@@ -46,9 +49,12 @@ export const SearchResult = ({
               displayName: auth.currentUser.displayName,
               // avatar: auth.currentUser.photoURL,
             },
+            [combinedId + ".lastMessage"]: {
+              message: "",
+            },
             [combinedId + ".date"]: serverTimestamp(),
           });
-          navigate(`/chat/${combinedId}`)
+          navigate(`/chat/${combinedId}`);
         } else {
           console.log("arsebobs");
         }

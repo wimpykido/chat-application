@@ -1,7 +1,7 @@
 import { Dispatch, useEffect, useState } from "react";
 import { SearchBar } from "../search-bar";
 import { query, collection, where, getDocs } from "firebase/firestore";
-import { db, auth } from "../../firebase";
+import { db } from "../../firebase";
 import { Stack } from "@mui/material";
 import { SearchResult } from "../search-result";
 

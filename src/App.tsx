@@ -14,22 +14,22 @@ const App = () => {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/*" element={<AccessControl />} />
-        {/* <Route
+        <Route
           path="/chat"
           element={
             <PrivateRoute>
               <ChatPage />
             </PrivateRoute>
           }
-        /> */}
-        <Route
+        />
+        {/* <Route
           path="/chat/:chatId"
           element={
             <PrivateRoute>
               <ChatPage />
             </PrivateRoute>
           }
-        />
+        /> */}
       </Routes>
     </BrowserRouter>
   );

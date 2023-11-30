@@ -8,7 +8,7 @@ type Props = {
 export const QuickReaction = ({ onQuickReactionClick }: Props) => {
   return (
     <IconButton onClick={onQuickReactionClick}>
-      <Avatar sx={{ width: 30, height: 30 }} src={heart} alt="sabastvis" />
+      <Avatar sx={{ width: 30, height: 30 }} src={heart} alt="quickReaction" />
     </IconButton>
   );
 };
