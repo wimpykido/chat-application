@@ -1,4 +1,4 @@
-import { Dispatch, useCallback, useEffect, useState } from "react";
+import { Dispatch, useEffect, useState } from "react";
 import { SearchBar } from "../search-bar";
 import { query, collection, where, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
