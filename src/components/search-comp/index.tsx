@@ -1,4 +1,4 @@
-import { Dispatch, useEffect, useState } from "react";
+import { Dispatch, useCallback, useEffect, useState } from "react";
 import { SearchBar } from "../search-bar";
 import { query, collection, where, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
@@ -10,32 +10,34 @@ export type SearchProps = {
   setUser: Dispatch<any>;
 };
 export const Search = ({ user, setUser }: SearchProps) => {
-  const [searchValue, setSearchValue] = useState("");
-  const [searchResults, setSearchResults] = useState<any[]>([
-    { displayName: "eliso", avatar: null },
-  ]);
+  const [searchValue, setSearchValue] = useState<string | null>(null);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
 
   const handleSearch = async (): Promise<void> => {
-    const q = query(
-      collection(db, "users"),
-      where("displayName", "==", searchValue)
-    );
-    try {
-      const querySnapshot = await getDocs(q);
-      const results: any = [];
-      querySnapshot.forEach((doc) => {
-        setUser(doc.data());
-        results.push(doc.data());
-        console.log(doc.data());
-      });
-      setSearchResults(results);
-    } catch (error) {
-      console.error(error);
+    if (searchValue && searchValue.length > 0) {
+      const q = query(
+        collection(db, "users"),
+        where("displayName", ">=", searchValue),
+        where("displayName", "<=", searchValue + "\uf8ff")
+      );
+
+      try {
+        const querySnapshot = await getDocs(q);
+        const results: any = [];
+        querySnapshot.forEach((doc) => {
+          setUser(doc.data());
+          results.push(doc.data());
+          console.log(doc.data());
+        });
+        setSearchResults(results);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
   useEffect(() => {
     handleSearch();
-  }, [searchValue]);
+  }, [searchValue, setUser]);
 
   return (
     <Stack
@@ -45,6 +47,7 @@ export const Search = ({ user, setUser }: SearchProps) => {
       alignItems={"center"}
     >
       <SearchBar
+        setSearchResults={setSearchResults}
         searchResults={searchResults}
         user={user}
         setUser={setUser}

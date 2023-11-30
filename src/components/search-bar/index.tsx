@@ -5,9 +5,10 @@ import { SearchProps } from "../search-comp";
 
 type SearchBarProps = SearchProps & {
   searchResults: any[];
-  searchValue: string;
-  setSearchValue: Dispatch<SetStateAction<string>>;
+  searchValue: string | null;
+  setSearchValue: Dispatch<SetStateAction<string | null>>;
   handleSearch: () => Promise<void>;
+  setSearchResults: Dispatch<SetStateAction<any[]>>;
 };
 
 export const SearchBar = ({
@@ -17,6 +18,7 @@ export const SearchBar = ({
   setSearchValue,
   handleSearch,
   searchResults,
+  setSearchResults,
 }: SearchBarProps) => {
   return (
     <Box display={"flex"} justifyContent={"center"} width={"90%"}>
@@ -34,6 +36,9 @@ export const SearchBar = ({
         onChange={(e) => {
           setSearchValue(e.target.value);
           handleSearch();
+        }}
+        onBlur={() => {
+          setSearchResults([]);
         }}
       />
     </Box>
