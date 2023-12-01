@@ -8,7 +8,6 @@ type SearchBarProps = SearchProps & {
   searchValue: string | null;
   setSearchValue: Dispatch<SetStateAction<string | null>>;
   handleSearch: () => Promise<void>;
-  setSearchResults: Dispatch<SetStateAction<any[]>>;
 };
 
 export const SearchBar = ({
@@ -18,10 +17,9 @@ export const SearchBar = ({
   setSearchValue,
   handleSearch,
   searchResults,
-  setSearchResults,
 }: SearchBarProps) => {
   return (
-    <Box display={"flex"} justifyContent={"center"} width={"90%"}>
+    <Box display={"flex"} justifyContent={"center"} width={"90%"} >
       <TextField
         fullWidth
         placeholder="search people"
@@ -36,9 +34,6 @@ export const SearchBar = ({
         onChange={(e) => {
           setSearchValue(e.target.value);
           handleSearch();
-        }}
-        onBlur={() => {
-          setSearchResults([]);
         }}
       />
     </Box>

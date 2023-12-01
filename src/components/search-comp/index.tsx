@@ -45,9 +45,9 @@ export const Search = ({ user, setUser }: SearchProps) => {
       width={"100%"}
       justifyContent={"center"}
       alignItems={"center"}
+      onMouseOver={() => setSearchResults([])}
     >
       <SearchBar
-        setSearchResults={setSearchResults}
         searchResults={searchResults}
         user={user}
         setUser={setUser}
