@@ -19,7 +19,7 @@ export const SearchResult = ({
   id,
 }: SearchResultProps) => {
   const handleSelect = async () => {
-    console.log(auth.currentUser)
+    console.log("current:", auth.currentUser);
     if (auth.currentUser) {
       const combinedId =
         auth.currentUser.uid > id
@@ -66,10 +66,11 @@ export const SearchResult = ({
 
   return (
     <Box
+      padding={1.5}
       onClick={handleSelect}
-      gap={1}
+      gap={2}
       display={"flex"}
-      width={"90%"}
+      width={"80%"}
       justifyContent={"flex-start"}
       alignItems={"center"}
     >
