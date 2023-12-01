@@ -57,6 +57,7 @@ const ThemeProvider = ({ children }: ProviderProps) => {
         main: "#FFFFFF",
         light: "#A0A0A0",
         dark: "#dfdfdf",
+        contrastText: " rgba(150,143,143,0.75)",
       },
     },
   });
@@ -74,6 +75,7 @@ const ThemeProvider = ({ children }: ProviderProps) => {
         main: "#323232",
         light: "#A0A0A0",
         dark: "#303030",
+        contrastText: "rgba(0,0,0,0.75)",
       },
     },
   });

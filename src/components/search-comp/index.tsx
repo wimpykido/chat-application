@@ -71,7 +71,7 @@ export const Search = ({ user, setUser }: SearchProps) => {
           top={"100%"}
           gap={1.5}
           sx={{
-            boxShadow: "-2px 8px 14px -2px rgba(0,0,0,0.75)",
+            boxShadow: `0px 7px 7px 0px ${theme.palette.secondary.contrastText}`,
             overflowY: "auto",
             "&::-webkit-scrollbar": {
               width: { xs: "1px", md: "4px" },
