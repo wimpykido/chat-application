@@ -1,6 +1,5 @@
 import { Avatar, Box, Typography, useTheme } from "@mui/material";
 import { db, auth } from "../../firebase";
-import { useNavigate } from "react-router-dom";
 import {
   setDoc,
   doc,
@@ -19,8 +18,8 @@ export const SearchResult = ({
   avatar,
   id,
 }: SearchResultProps) => {
-  const navigate = useNavigate();
   const handleSelect = async () => {
+    console.log("current:", auth.currentUser);
     if (auth.currentUser) {
       const combinedId =
         auth.currentUser.uid > id
@@ -47,14 +46,13 @@ export const SearchResult = ({
             [combinedId + ".userInfo"]: {
               uid: auth.currentUser.uid,
               displayName: auth.currentUser.displayName,
-              // avatar: auth.currentUser.photoURL,
+              // avatar: auth.currentUser.,
             },
             [combinedId + ".lastMessage"]: {
               message: "",
             },
             [combinedId + ".date"]: serverTimestamp(),
           });
-          navigate(`/chat/${combinedId}`);
         } else {
           console.log("arsebobs");
         }
@@ -68,10 +66,11 @@ export const SearchResult = ({
 
   return (
     <Box
+      padding={1.5}
       onClick={handleSelect}
-      gap={1}
+      gap={2}
       display={"flex"}
-      width={"90%"}
+      width={"80%"}
       justifyContent={"flex-start"}
       alignItems={"center"}
     >

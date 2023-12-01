@@ -5,9 +5,9 @@ import { SearchProps } from "../search-comp";
 
 type SearchBarProps = SearchProps & {
   searchResults: any[];
-  searchValue: string;
-  setSearchValue: Dispatch<SetStateAction<string>>;
-  handleSearch: () => Promise<void>;
+  searchValue: string | null;
+  setSearchValue: Dispatch<SetStateAction<string | null>>;
+  handleSearch: (event: any) => Promise<void>;
 };
 
 export const SearchBar = ({
@@ -19,7 +19,7 @@ export const SearchBar = ({
   searchResults,
 }: SearchBarProps) => {
   return (
-    <Box display={"flex"} justifyContent={"center"} width={"90%"}>
+    <Box marginTop={2} display={"flex"} justifyContent={"center"} width={"90%"}>
       <TextField
         fullWidth
         placeholder="search people"
@@ -33,7 +33,12 @@ export const SearchBar = ({
         value={searchValue}
         onChange={(e) => {
           setSearchValue(e.target.value);
-          handleSearch();
+          handleSearch(e);
+        }}
+        onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => {
+          if (e.key === "Enter") {
+            handleSearch(e);
+          }
         }}
       />
     </Box>
