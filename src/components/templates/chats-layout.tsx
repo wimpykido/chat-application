@@ -36,7 +36,6 @@ export const ChatLayout = ({ children }: ChatLayoutProps) => {
 
           if (userChatsDocSnap.exists()) {
             const userChatsData = userChatsDocSnap.data();
-            console.log(userChatsData);
             if (userChatsData) {
               const usersArray = Object.entries(userChatsData).map(
                 ([chatId, chatData]) => ({
@@ -48,7 +47,6 @@ export const ChatLayout = ({ children }: ChatLayoutProps) => {
                 })
               );
               setUsers(usersArray);
-              console.log("User Chats Data:", usersArray);
             } else {
               console.log("User Chats data is not in the expected format");
             }

@@ -19,7 +19,6 @@ export const ChatBox = ({ avatarData }: chatProps) => {
   useEffect(() => {
     if (data.chatId) {
       const unSub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
-        console.log(doc.data());
         doc.exists() && setMessages(doc.data().messages);
       });
 
@@ -29,7 +28,6 @@ export const ChatBox = ({ avatarData }: chatProps) => {
     }
   }, [data.chatId]);
 
-  console.log("es unda gamochndes:", messages);
   return (
     // <Stack
     //   height={"calc(100vh - 164px)"}

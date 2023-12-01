@@ -19,6 +19,7 @@ export const SearchResult = ({
   id,
 }: SearchResultProps) => {
   const handleSelect = async () => {
+    console.log(auth.currentUser)
     if (auth.currentUser) {
       const combinedId =
         auth.currentUser.uid > id
@@ -45,7 +46,7 @@ export const SearchResult = ({
             [combinedId + ".userInfo"]: {
               uid: auth.currentUser.uid,
               displayName: auth.currentUser.displayName,
-              // avatar: auth.currentUser.photoURL,
+              // avatar: auth.currentUser.,
             },
             [combinedId + ".lastMessage"]: {
               message: "",
